@@ -1,0 +1,30 @@
+.ai-button {
+  border: none;
+  padding: 8px 12px;
+  margin: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  transition: background-color 0.2s ease;
+}
+
+.ai-button.primary {
+  background-color: #0078d4;
+  color: white;
+}
+.ai-button.primary:hover {
+  background-color: #005a9e;
+}
+
+.ai-button.secondary {
+  background-color: #f3f2f1;
+  color: #323130;
+  border: 1px solid #c8c6c4;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+.ai-button.secondary:hover {
+  background-color: #e1dfdd;
+}
