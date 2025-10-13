@@ -21,7 +21,7 @@ async function getChatGPTSuggestion(prompt) {
 }
 
 function findAndInject() {
-  const sendButtonToolbar = document.querySelector('[id*="editorParent"]')
+  const sendButtonToolbar = document.querySelector(':has(> div[data-testid="ComposeSendButton"])')
   if (!sendButtonToolbar) {
     console.log('Send button toolbar not found yet.')
     return
@@ -43,7 +43,7 @@ function findAndInject() {
   generateButton.onclick = async (e) => {
     e.stopPropagation()
     const composeArea = sendButtonToolbar.closest('div[role="dialog"]')
-    const emailBody = composeArea ? composeArea.querySelector('div[aria-label="Message body"]') : null
+    const emailBody = composeArea ? composeArea.querySelector('[id*="editorParent"]') : null
     if (emailBody) {
       emailBody.innerHTML = 'Generating draft...'
       const prompt = 'Write a professional email requesting an extension for an assignment.'
@@ -63,8 +63,8 @@ function findAndInject() {
   subjectButton.className = 'ai-button secondary'
   subjectButton.onclick = async (e) => {
     e.stopPropagation()
-    const composeArea = sendButtonToolbar.closest('div[role="dialog"]')
-    const subjectInput = composeArea ? composeArea.querySelector('input[aria-label*="Subject"]') : null
+    const composeArea = sendButtonToolbar.closest('#ReadingPaneContainerId')
+    const subjectInput = document ? composeArea.querySelector('input[aria-label*="Subject"]') : null
     if (subjectInput) {
       subjectInput.value = 'Generating subject...'
       const prompt = 'Suggest a concise and clear subject line for an email requesting an assignment extension.'
