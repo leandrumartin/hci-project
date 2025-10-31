@@ -89,7 +89,19 @@ function findAndInject() {
   recipientButton.className = 'ai-button secondary'
   recipientButton.onclick = async (e) => {
     e.stopPropagation()
-    alert('Contact your instructor or professor for assignment-related emails.') //alert
+    const composeArea = sendButtonToolbar.closest('#ReadingPaneContainerId')
+    const recipientInput = document ? composeArea.querySelector('div[aria-label*="To"]') : null
+    if (recipientInput) {
+      recipientInput.innerHTML = 'Generating recipients...'
+      const prompt = 'Suggest recipients for an email requesting an assignment extension.'
+      try {
+        recipientInput.innerHTML = await getChatGPTSuggestion(prompt)
+      } catch (error) {
+        recipientInput.innerHTML = sample_recipient
+      }
+    } else {
+      console.error('AI Assistant: Could not find the recipient input.')
+    }
   }
 
   buttonContainer.appendChild(generateButton)
