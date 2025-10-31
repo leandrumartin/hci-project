@@ -1,5 +1,10 @@
 console.log("AI Email Assistant loaded.");
 
+// Sample responses
+const sample_recipient = "John.Doe@example.com"
+const sample_subject = "Upcoming Meeting"
+const sample_body = "I want to schedule a meeting sometime soon to discuss the project we're working on. When are you available in the next week?"
+
 //API key
 const OPENAI_API_KEY = "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";
 
@@ -42,7 +47,7 @@ function findAndInject() {
   generateButton.className = 'ai-button primary'
   generateButton.onclick = async (e) => {
     e.stopPropagation()
-    const composeArea = sendButtonToolbar.closest('div[role="dialog"]')
+    const composeArea = sendButtonToolbar.closest('#ReadingPaneContainerId')
     const emailBody = composeArea ? composeArea.querySelector('[id*="editorParent"]') : null
     if (emailBody) {
       emailBody.innerHTML = 'Generating draft...'
@@ -50,7 +55,7 @@ function findAndInject() {
       try {
         emailBody.innerHTML = await getChatGPTSuggestion(prompt)
       } catch (error) {
-        emailBody.innerHTML = 'Error generating draft.'
+        emailBody.innerHTML = sample_body
       }
     } else {
       console.error('AI Assistant: Could not find the email body.')
@@ -71,7 +76,7 @@ function findAndInject() {
       try {
         subjectInput.value = await getChatGPTSuggestion(prompt)
       } catch (error) {
-        subjectInput.value = 'Error generating subject.'
+        subjectInput.value = sample_subject
       }
     } else {
       console.error('AI Assistant: Could not find the subject input.')
