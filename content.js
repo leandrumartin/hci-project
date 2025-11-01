@@ -62,7 +62,7 @@ function findAndInject() {
     e.stopPropagation()
 
     const composeArea = sendButtonToolbar.closest('#ReadingPaneContainerId')
-    const emailBody = composeArea ? composeArea.querySelector('[id*="editorParent"]') : null
+    const emailBody = composeArea ? composeArea.querySelector('div[aria-label*="Message body"]') : null
     const subjectInput = document ? composeArea.querySelector('input[aria-label*="Subject"]') : null
     const recipientInput = document ? composeArea.querySelector('div[aria-label*="To"]') : null
     
@@ -99,7 +99,7 @@ function findAndInject() {
     e.stopPropagation()
     
     const composeArea = sendButtonToolbar.closest('#ReadingPaneContainerId')
-    const emailBody = composeArea ? composeArea.querySelector('[id*="editorParent"]') : null
+    const emailBody = composeArea ? composeArea.querySelector('div[aria-label*="Message body"]') : null
     const subjectInput = document ? composeArea.querySelector('input[aria-label*="Subject"]') : null
     const recipientInput = document ? composeArea.querySelector('div[aria-label*="To"]') : null
     
@@ -136,7 +136,7 @@ function findAndInject() {
     e.stopPropagation()
     
     const composeArea = sendButtonToolbar.closest('#ReadingPaneContainerId')
-    const emailBody = composeArea ? composeArea.querySelector('[id*="editorParent"]') : null
+    const emailBody = composeArea ? composeArea.querySelector('div[aria-label*="Message body"]') : null
     const subjectInput = document ? composeArea.querySelector('input[aria-label*="Subject"]') : null
     const recipientInput = document ? composeArea.querySelector('div[aria-label*="To"]') : null
     
