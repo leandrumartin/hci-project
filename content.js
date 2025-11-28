@@ -16,6 +16,20 @@ const sampleBodies = [
   "I hope this email finds you well. I wanted to follow up on our previous conversation regarding the project timeline. Please let me know if there are any updates.",
   "I have a question about the upcoming assignment due Friday. What is the length requirement for the written portion?",
 ]
+const preDefinedDrafts = [
+  {
+    "name": "Late to class",
+    "body": "Dear Professor,\n\nI hope this email finds you well. I wanted to inform you that I will be arriving late to class tomorrow due to a prior commitment. I apologize for any inconvenience this may cause and will make sure to catch up on any missed material.\n\nThank you for your understanding.\n\nBest regards,\n[Your Name]",  
+  },
+  {
+    "name": "Homework extension",
+    "body": "Dear Professor,\n\nI hope you are doing well. I am writing to request an extension on the homework assignment due this Friday. Due to unforeseen circumstances, I have been unable to complete the assignment on time. I would greatly appreciate it if you could grant me an extension until next Monday.\n\nThank you for your consideration.\n\nSincerely,\n[Your Name]",
+  },
+  {
+    "name": "Schedule meeting",
+    "body": "Dear Professor,\n\nI hope this message finds you well. I would like to schedule a meeting with you to discuss my progress in the course and any areas where I can improve. Please let me know your availability for the upcoming week.\n\nThank you for your time and support.\n\nBest regards,\n[Your Name]",
+  },
+]
 
 //API key
 const OPENAI_API_KEY = "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";
