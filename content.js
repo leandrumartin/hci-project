@@ -53,11 +53,20 @@ function findAndInject() {
   buttonContainer.style.alignItems = 'center'
   buttonContainer.style.gap = '8px'
 
-  //generate draft
+  // Generate Draft button
+  const generateSplitButton = document.createElement('div')
+  Object.assign(generateSplitButton, {
+    className: 'fui-SplitButton',
+  })
+
   const generateButton = document.createElement('button')
-  generateButton.innerText = 'Generate Draft'
-  generateButton.className = 'ai-button primary'
-  generateButton.title = 'Generate email draft using AI'
+  Object.assign(generateButton, {
+    type: 'button',
+    role: 'button',
+    innerText: 'Generate Draft',
+    className: 'ai-button primary fui-Button fui-SplitButton__primaryActionButton',
+    title: 'Generate email draft using AI',
+  })
   generateButton.onclick = async (e) => {
     e.stopPropagation()
 
@@ -90,11 +99,37 @@ function findAndInject() {
     }
   }
 
+  const generateDropdownButton = document.createElement('button')
+  Object.assign(generateDropdownButton, {
+    type: 'button',
+    role: 'button',
+    'aria-expanded': 'false',
+    'aria-haspopup': 'menu',
+    className: 'fui-Button fui-MenuButton fui-SplitButton__menuButton',
+    title: 'More options',
+  })
+  generateDropdownButton.innerHTML = '<span class="fui-MenuButton__menuIcon ___1gqzbv5 fwrc4pm f1ugzwwg fvblgha frx94fk"><i class="fui-Icon-font ___qaf4230 f14t3ns0 fne0op0 fmd4ok8 f303qgw f1sxfq9t" fill="currentColor" aria-hidden="true"></i></span>'
+  generateDropdownButton.onclick = (e) => {
+    let coordinates = generateDropdownButton.getBoundingClientRect()
+    let dropdown = document.createElement('div')
+    Object.assign(dropdown, {
+      role: 'presentation',
+      className: 'fui-MenuPopover',
+      style: `position: absolute; left: 0px; top: 0px; margin: 0px; transform: translate3d(${coordinates.left}px, ${coordinates.bottom}px, 0px);`
+    })
+    document.body.appendChild(dropdown)
+  }
+
+
   //subject
   const subjectButton = document.createElement('button')
-  subjectButton.innerText = 'Suggest Subject'
-  subjectButton.className = 'ai-button secondary'
-  subjectButton.title = 'Suggest a subject using AI based on your email content'
+  Object.assign(subjectButton, {
+    type: 'button',
+    role: 'button',
+    innerText: 'Suggest Subject',
+    className: 'ai-button secondary',
+    title: 'Suggest a subject using AI based on your email content',
+  })
   subjectButton.onclick = async (e) => {
     e.stopPropagation()
     
@@ -129,9 +164,13 @@ function findAndInject() {
 
   //receiver
   const recipientButton = document.createElement('button')
-  recipientButton.innerText = 'Suggest Recipients'
-  recipientButton.className = 'ai-button secondary'
-  recipientButton.title = 'Suggest recipients using AI based on your email content'
+  Object.assign(recipientButton, {
+    type: 'button',
+    role: 'button',
+    innerText: 'Suggest Recipients',
+    className: 'ai-button secondary',
+    title: 'Suggest recipients using AI based on your email content',
+  })
   recipientButton.onclick = async (e) => {
     e.stopPropagation()
     
@@ -164,7 +203,9 @@ function findAndInject() {
     }
   }
 
-  buttonContainer.appendChild(generateButton)
+  generateSplitButton.appendChild(generateButton)
+  generateSplitButton.appendChild(generateDropdownButton)
+  buttonContainer.appendChild(generateSplitButton)
   buttonContainer.appendChild(subjectButton)
   buttonContainer.appendChild(recipientButton)
 
