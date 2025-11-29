@@ -70,7 +70,7 @@ function findAndInject() {
   // Generate Draft button
   const generateSplitButton = document.createElement('div')
   Object.assign(generateSplitButton, {
-    className: 'fui-SplitButton',
+    className: 'fui-SplitButton ___1ro086q ftuwxu6 fsxf2b5 f10pi13n fmrv4ls f14uur2j fye5tvs f1e8brtx fxp12j1 fr7y8no f1b65x5h f4rm5b0 fdwdeeo fckzjn8 ff0tx2l f3jppgx f96h41g f4xeytr',
   })
 
   const generateButton = document.createElement('button')
@@ -78,7 +78,7 @@ function findAndInject() {
     type: 'button',
     role: 'button',
     innerText: 'Generate Draft',
-    className: 'ai-button primary fui-Button fui-SplitButton__primaryActionButton',
+    className: 'ai-button fui-Button r1alrhcs fui-SplitButton__primaryActionButton EOi57 ___t5c72m0 ffp7eso f1p3nwhy f11589ue f1q5o8ev f1pdflbu f1phragk f15wkkf3 f1s2uweq fr80ssc f1ukrpxl fecsdlb f1rq72xc fnp9lpt f1h0usnq fs4ktlq f16h9ulv fx2bmrt f1d6v5y2 f1rirnrt f1uu00uk fkvaka8 f1ux7til f9a0qzu f1lkg8j3 fkc42ay fq7113v ff1wgvm fiob0tu f1j6scgf f1x4h75k f4xjyn1 fbgcvur f1ks1yx8 f1o6qegi fcnxywj fmxjhhp f9ddjv3 f17t0x8g f194v5ow f1qgg65p fk7jm04 fhgccpy f32wu9k fu5nqqq f13prjl2 f1czftr5 f1nl83rv f12k37oa fr96u23 f1x37qnr fn4c73s',
     title: 'Generate email draft using AI',
   })
   generateButton.onclick = async (e) => {
@@ -121,7 +121,7 @@ function findAndInject() {
     role: 'button',
     'aria-expanded': 'false',
     'aria-haspopup': 'menu',
-    className: 'fui-Button fui-MenuButton fui-SplitButton__menuButton',
+    className: 'fui-Button r1alrhcs fui-MenuButton fui-SplitButton__menuButton ___136d5ro ffp7eso f1p3nwhy f11589ue f1q5o8ev f1pdflbu f1phragk f15wkkf3 f1s2uweq fr80ssc f1ukrpxl fecsdlb f1rq72xc fnp9lpt f1h0usnq fs4ktlq f16h9ulv fx2bmrt f1d6v5y2 f1rirnrt f1uu00uk fkvaka8 f1ux7til f9a0qzu f1lkg8j3 fkc42ay fq7113v ff1wgvm fiob0tu f1j6scgf f1x4h75k f4xjyn1 fbgcvur f1ks1yx8 f1o6qegi fcnxywj fmxjhhp f9ddjv3 f17t0x8g f194v5ow f1qgg65p fk7jm04 fhgccpy f32wu9k fu5nqqq f13prjl2 f1czftr5 f1nl83rv f12k37oa fr96u23 f18ktai2 fwbmr0d f44c6la frrbwxo f1um7c6d f6pwzcr',
     title: 'More options',
   })
   generateDropdownButton.innerHTML = '<span class="fui-MenuButton__menuIcon ___1gqzbv5 fwrc4pm f1ugzwwg fvblgha frx94fk"><i class="fui-Icon-font ___qaf4230 f14t3ns0 fne0op0 fmd4ok8 f303qgw f1sxfq9t" fill="currentColor" aria-hidden="true"></i></span>'
