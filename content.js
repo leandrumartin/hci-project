@@ -113,6 +113,7 @@ function findAndInject() {
     }
   }
 
+  // Dropdown button
   const generateDropdownButton = document.createElement('button')
   Object.assign(generateDropdownButton, {
     id: 'generateDropdownButton',
@@ -125,6 +126,8 @@ function findAndInject() {
   })
   generateDropdownButton.innerHTML = '<span class="fui-MenuButton__menuIcon ___1gqzbv5 fwrc4pm f1ugzwwg fvblgha frx94fk"><i class="fui-Icon-font ___qaf4230 f14t3ns0 fne0op0 fmd4ok8 f303qgw f1sxfq9t" fill="currentColor" aria-hidden="true"></i></span>'
   generateDropdownButton.onclick = () => {
+    // When I inspected a dropdown from the original UI, it created several nested divs with specific class names and
+    // attributes. I'm replicating those to make sure it is styled correctly.
     let dropdownContainer1 = document.createElement('div')
     Object.assign(dropdownContainer1, {
       id: 'dropdownContainer',
@@ -155,6 +158,7 @@ function findAndInject() {
       className: 'fui-MenuList ___1cyqkw0 f22iagw f1vx9l62 f1t6b6ee f1l02sjl',
     })
 
+    // For each of the example drafts, add it as a menu item
     preDefinedDrafts.forEach(draft => {
       let menuItem = document.createElement('div')
       Object.assign(menuItem, {
