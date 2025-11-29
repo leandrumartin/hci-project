@@ -115,6 +115,7 @@ function findAndInject() {
 
   const generateDropdownButton = document.createElement('button')
   Object.assign(generateDropdownButton, {
+    id: 'generateDropdownButton',
     type: 'button',
     role: 'button',
     'aria-expanded': 'false',
@@ -123,15 +124,64 @@ function findAndInject() {
     title: 'More options',
   })
   generateDropdownButton.innerHTML = '<span class="fui-MenuButton__menuIcon ___1gqzbv5 fwrc4pm f1ugzwwg fvblgha frx94fk"><i class="fui-Icon-font ___qaf4230 f14t3ns0 fne0op0 fmd4ok8 f303qgw f1sxfq9t" fill="currentColor" aria-hidden="true"></i></span>'
-  generateDropdownButton.onclick = (e) => {
-    let coordinates = generateDropdownButton.getBoundingClientRect()
-    let dropdown = document.createElement('div')
-    Object.assign(dropdown, {
-      role: 'presentation',
-      className: 'fui-MenuPopover',
-      style: `position: absolute; left: 0px; top: 0px; margin: 0px; transform: translate3d(${coordinates.left}px, ${coordinates.bottom}px, 0px);`
+  generateDropdownButton.onclick = () => {
+    let dropdownContainer1 = document.createElement('div')
+    Object.assign(dropdownContainer1, {
+      id: 'dropdownContainer',
+      className: 'fui-FluentProvider fui-FluentProviderr63 ___1f74osn f19n0e5 f3rmtva fgusgyc fk6fouc fkhj508 figsok6 fytdu2e f1euv43f f15twtuk f1vgc2s3 f1e31b4d f494woh',
+      'data-portal-node': 'true'
     })
-    document.body.appendChild(dropdown)
+    dropdownContainer1.addEventListener('click', () => {
+      document.body.removeChild(document.querySelector('#dropdownContainer'))
+    })
+
+    let coordinates = document.querySelector('#generateDropdownButton').getBoundingClientRect()
+    let dropdownContainer2 = document.createElement('div')
+    Object.assign(dropdownContainer2, {
+      role: 'presentation',
+      'data-tabster': '{&quot;restorer&quot;:{&quot;type&quot;:0}}',
+      className: 'fui-MenuPopover ___152dg9n ft85np5 fxugw4r f19n0e5 f1ewtqcl fl8fusi f1kaai3v f1p9o1ba f1ahpp82 f1hg901r fd3pd8h f9ggezi fk6fouc fkhj508 figsok6 f1i3iumi f18k4bn6 fo1kyvf fetxo7e f8x1vz1 f8g0anz fezwn9i fz5efge f1ydixl4 f8dgqj5 fnyfnr8 fgw77r4 f1noc5he fi19xcv f1mxk9aa ffzg62k',
+      style: 'position: absolute; left: 0px; top: 0px; margin: 0px',
+      transform: `translate3d(${coordinates.left}px, ${coordinates.bottom}px, 0px)`,
+      'data-popper-placement': 'bottom-end',
+      'data-popper-is-intersecting': '',
+    })
+
+    let dropdownContainer3 = document.createElement('div')
+    Object.assign(dropdownContainer3, {
+      role: 'menu',
+      'aria-labelledby': 'menur64',
+      'data-tabster': '{&quot;mover&quot;:{&quot;cyclic&quot;:true,&quot;direction&quot;:1,&quot;memorizeCurrent&quot;:true}}',
+      className: 'fui-MenuList ___1cyqkw0 f22iagw f1vx9l62 f1t6b6ee f1l02sjl',
+    })
+
+    preDefinedDrafts.forEach(draft => {
+      let menuItem = document.createElement('div')
+      Object.assign(menuItem, {
+        role: 'menuitem',
+        tabindex: '0',
+        className: 'fui-MenuItem rfoezjv',
+      })
+      menuItem.innerHTML = `<span class="fui-MenuItem__content r1ls86vo">${draft.name}</span>`
+      menuItem.onclick = async (e) => {
+        e.stopPropagation()
+
+        const composeArea = sendButtonToolbar.closest('#ReadingPaneContainerId')
+        const emailBody = composeArea ? composeArea.querySelector('div[aria-label*="Message body"]') : null
+
+        if (emailBody) {
+          emailBody.innerHTML = 'Generating draft...'
+          emailBody.innerHTML = draft.body
+        } else {
+          console.error('AI Assistant: Could not find the email body.')
+        }
+      }
+
+      dropdownContainer3.appendChild(menuItem)
+    })
+    dropdownContainer2.appendChild(dropdownContainer3)
+    dropdownContainer1.appendChild(dropdownContainer2)
+    document.body.appendChild(dropdownContainer1)
   }
 
 
