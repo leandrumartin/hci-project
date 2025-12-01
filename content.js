@@ -374,7 +374,7 @@ function findAndInject() {
         let subjectText = sampleSubjects[Math.floor(Math.random() * sampleSubjects.length)]
 
         // Generate sample subject based on body text or recipient
-        let bodyIndex = sampleBodies.indexOf(emailBody ? emailBody.innerHTML : "")
+        let bodyIndex = sampleBodies.indexOf(emailBody ? emailBody.innerHTML.replace(/<br>/g, "\n") : "")
         let recipientIndex = sampleRecipients.indexOf(recipientInput ? recipientInput.innerHTML : "")
         if (bodyIndex !== -1) {
           subjectText = sampleSubjects[bodyIndex]
@@ -415,7 +415,7 @@ function findAndInject() {
         let recipientText = sampleRecipients[Math.floor(Math.random() * sampleRecipients.length)]
 
         // Generate sample recipient based on body text or subject
-        let bodyIndex = sampleBodies.indexOf(emailBody ? emailBody.innerHTML : "")
+        let bodyIndex = sampleBodies.indexOf(emailBody ? emailBody.innerHTML.replace(/<br>/g, "\n") : "")
         let subjectIndex = sampleSubjects.indexOf(subjectInput ? subjectInput.value : "")
         if (bodyIndex !== -1) {
           recipientText = sampleRecipients[bodyIndex]
