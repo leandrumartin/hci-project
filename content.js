@@ -1,35 +1,168 @@
 console.log("AI Email Assistant loaded.");
 
+const emailKeywordMap = [
+  {
+    keywords: ["shift", "schedule", "availability"],
+    subjectMatch: "Shift Change Request",
+    bodyMatchIndex: 0
+  },
+  {
+    keywords: ["availability", "update", "work hours"],
+    subjectMatch: "Updated Work Availability",
+    bodyMatchIndex: 1
+  },
+  {
+    keywords: ["lab", "access", "cyber", "security"],
+    subjectMatch: "Request for Lab Access",
+    bodyMatchIndex: 2
+  },
+  {
+    keywords: ["report", "daily", "progress"],
+    subjectMatch: "Daily Work Report",
+    bodyMatchIndex: 3
+  },
+  {
+    keywords: ["time off", "leave", "vacation"],
+    subjectMatch: "Request for Time Off",
+    bodyMatchIndex: 4
+  },
+  {
+    keywords: ["requirements", "document", "update"],
+    subjectMatch: "Updated Requirements Document",
+    bodyMatchIndex: 5
+  },
+  {
+    keywords: ["reservation", "guest", "hotel"],
+    subjectMatch: "Guest Reservation Confirmation",
+    bodyMatchIndex: 6
+  },
+  {
+    keywords: ["event", "details", "assignment"],
+    subjectMatch: "Request for Event Details",
+    bodyMatchIndex: 7
+  },
+  {
+    keywords: ["iss", "letter", "immigration"],
+    subjectMatch: "Request for Confirmation Letter",
+    bodyMatchIndex: 8
+  },
+  {
+    keywords: ["order", "supplies", "list"],
+    subjectMatch: "Weekly Ordering List",
+    bodyMatchIndex: 9
+  }
+];
+
+function findBestEmailMatch(text) {
+  text = text.toLowerCase();
+  let bestMatch = null;
+  let highestScore = 0;
+
+  emailKeywordMap.forEach(entry => {
+    let score = 0;
+
+    entry.keywords.forEach(keyword => {
+      if (text.includes(keyword.toLowerCase())) score++;
+    });
+
+    if (score > highestScore) {
+      highestScore = score;
+      bestMatch = entry;
+    }
+  });
+
+  return bestMatch;
+}
+
 // Sample responses
 const sampleRecipients = [
-  "John.Doe@example.com",
-  "Jane.Doe@example.com",
-  "Professor.Smith@example.com",
-]
+  "supervisor@simonrec.slu.edu",
+  "itsecurity@webster.edu",
+  "manager@cvs.com",
+  "engineering.ops@boeing.com",
+  "frontdesk@qualityinn.com",
+  "iss@slu.edu",
+  "event.coordinator@chaifetzarena.com",
+  "kitchen.manager@slu.edu",
+  "cyberlab.admin@webster.edu",
+  "shiftlead@simonrec.slu.edu"
+];
+
 const sampleSubjects = [
-  "Upcoming Meeting",
-  "Project Timeline",
-  "Homework Question",
-]
+  "Shift Change Request",
+  "Updated Work Availability",
+  "Request for Lab Access",
+  "Daily Work Report",
+  "Request for Time Off",
+  "Updated Requirements Document",
+  "Guest Reservation Confirmation",
+  "Request for Event Details",
+  "Request for Confirmation Letter",
+  "Weekly Ordering List"
+];
+
 const sampleBodies = [
-  "I want to schedule a meeting sometime soon to discuss the project we're working on. When are you available in the next week?",
-  "I hope this email finds you well. I wanted to follow up on our previous conversation regarding the project timeline. Please let me know if there are any updates.",
-  "I have a question about the upcoming assignment due Friday. What is the length requirement for the written portion?",
-]
+  "Dear Supervisor,\n\nI hope you are doing well. I wanted to inform you that I will not be able to make my scheduled shift today due to a class-related conflict. Please let me know if I should arrange coverage or follow any procedures.\n\nThank you for your understanding.\n\nBest regards,\n[Your Name]",
+
+  "Hello,\n\nI wanted to share my updated availability for this week. Please let me know if any adjustments are required.\n\nThank you,\n[Your Name]",
+
+  "Hi,\n\nCould I please be granted access to the cybersecurity lab this week? I am working on an experiment and need access to complete my tasks.\n\nThank you,\n[Your Name]",
+
+  "Hello,\n\nHere is my completed work for today. Please let me know if anything requires revision or further detail.\n\nThank you,\n[Your Name]",
+
+  "Hi,\n\nI would like to request time off on [date]. Please let me know if this request can be approved or if additional information is needed.\n\nThank you,\n[Your Name]",
+
+  "Dear Team,\n\nI have attached the updated requirements document. Please review and let me know if any modifications are necessary.\n\nBest regards,\n[Your Name]",
+
+  "Hello,\n\nCould you please confirm the guest’s reservation details for tonight? I want to ensure everything is prepared properly.\n\nThank you,\n[Your Name]",
+
+  "Hi,\n\nCould you please share the details for today’s event? I need to confirm my assigned responsibilities.\n\nThank you,\n[Your Name]",
+
+  "Dear ISS Team,\n\nI would like to request a confirmation letter for immigration purposes. Please let me know the required process or any documents needed.\n\nThank you,\n[Your Name]",
+
+  "Hello,\n\nHere is the list of items needed for next week’s meals and events. Let me know if any changes are required.\n\nThank you,\n[Your Name]"
+];
+
 const preDefinedDrafts = [
   {
-    "name": "Late to class",
-    "body": "Dear Professor,\n\nI hope this email finds you well. I wanted to inform you that I will be arriving late to class tomorrow due to a prior commitment. I apologize for any inconvenience this may cause and will make sure to catch up on any missed material.\n\nThank you for your understanding.\n\nBest regards,\n[Your Name]",  
+    name: "Request Extension",
+    subject: "Request for Assignment Extension",
+    body:
+      "Dear Professor,\n\nI hope you are doing well. I am writing to respectfully request a short extension for the upcoming assignment due on [date]. Due to unexpected circumstances, I have been unable to complete it on time. I would greatly appreciate an extension of a few days if possible.\n\nThank you for your understanding.\n\nSincerely,\nSmit Patel"
   },
   {
-    "name": "Homework extension",
-    "body": "Dear Professor,\n\nI hope you are doing well. I am writing to request an extension on the homework assignment due this Friday. Due to unforeseen circumstances, I have been unable to complete the assignment on time. I would greatly appreciate it if you could grant me an extension until next Monday.\n\nThank you for your consideration.\n\nSincerely,\n[Your Name]",
+    name: "Schedule Meeting",
+    subject: "Request to Schedule a Meeting",
+    body:
+      "Dear Professor,\n\nI hope this message finds you well. I would like to request a meeting to discuss my progress in the course and clarify a few questions I have. Please let me know your availability in the upcoming week.\n\nThank you for your time.\n\nBest regards,\n\nLeandru Martin"
   },
   {
-    "name": "Schedule meeting",
-    "body": "Dear Professor,\n\nI hope this message finds you well. I would like to schedule a meeting with you to discuss my progress in the course and any areas where I can improve. Please let me know your availability for the upcoming week.\n\nThank you for your time and support.\n\nBest regards,\n[Your Name]",
+    name: "Clarify Assignment",
+    subject: "Clarification Needed on Assignment Instructions",
+    body:
+      "Dear Professor,\n\nI hope you are doing well. I am reaching out for clarification regarding the instructions for the assignment due on [date]. Could you please confirm the expected structure and any specific formatting requirements?\n\nThank you for your guidance.\n\nSincerely,\n\nSmit Patel"
   },
-]
+  {
+    name: "Class Absence",
+    subject: "Notification of Class Absence",
+    body:
+      "Dear Professor,\n\nI hope this email finds you well. I wanted to inform you that I will be unable to attend class on [date] due to personal reasons. I will review the material covered and ensure that I stay up to date.\n\nThank you for your understanding.\n\nBest regards,\n\nLeandru Martin"
+  },
+  {
+    name: "Office Hours Request",
+    subject: "Office Hours Appointment Request",
+    body:
+      "Dear Professor,\n\nI hope you are doing well. I would like to request a brief appointment during your office hours to go over some questions I have about the recent lecture topics. Please let me know a suitable time.\n\nThank you for your support.\n\nSincerely,\n\nSmit Patel"
+  },
+  {
+    name: "Follow-Up Email",
+    subject: "Follow-Up on Previous Email",
+    body:
+      "Dear Professor,\n\nI hope you are doing well. I am writing to follow up on the email I sent on [date] regarding [topic]. I understand that you have a busy schedule, but I wanted to ensure my message reached you.\n\nThank you for your time.\n\nBest regards,\n\nLeandru Martin"
+  }
+];
+
+
 
 //API key
 const OPENAI_API_KEY = "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";
@@ -49,6 +182,24 @@ async function getChatGPTSuggestion(prompt) {
   });
   const data = await response.json();
   return data.choices[0].message.content;
+}
+
+async function typeWriterEffect(element, text, speed = 10) {
+  element.innerHTML = "";
+  let i = 0;
+
+  function typeLetter() {
+    if (i < text.length) {
+      if (text[i] === "\n") {
+        element.innerHTML += "<br>";
+      } else {
+        element.innerHTML += text[i];
+      }
+      i++;
+      setTimeout(typeLetter, speed);
+    }
+  }
+  typeLetter();
 }
 
 function findAndInject() {
@@ -93,20 +244,24 @@ function findAndInject() {
       emailBody.innerHTML = 'Generating draft...'
       const prompt = 'Write a professional email requesting an extension for an assignment.'
       try {
-        emailBody.innerHTML = await getChatGPTSuggestion(prompt)
+        const aiResponse = await getChatGPTSuggestion(prompt);
+        typeWriterEffect(emailBody, aiResponse);
       } catch (error) {
-        let bodyText = sampleBodies[Math.floor(Math.random() * sampleBodies.length)]
+        let combinedText = (subjectInput?.value || "") + " " + (recipientInput?.innerText || "");
 
-        // Generate sample body based on subject or recipient
-        let subjectIndex = sampleSubjects.indexOf(subjectInput ? subjectInput.value : "")
-        let recipientIndex = sampleRecipients.indexOf(recipientInput ? recipientInput.innerHTML : "")
-        if (subjectIndex !== -1) {
-          bodyText = sampleBodies[subjectIndex]
-        } else if (recipientIndex !== -1) {
-          bodyText = sampleBodies[recipientIndex]
+        const match = findBestEmailMatch(combinedText);
+
+        let bodyText;
+        if (match) {
+          bodyText = sampleBodies[match.bodyMatchIndex];
+          subjectInput.value = match.subjectMatch;
+          subjectInput.dispatchEvent(new Event("input", { bubbles: true }));
+          subjectInput.dispatchEvent(new Event("change", { bubbles: true }));
+        } else {
+          bodyText = sampleBodies[Math.floor(Math.random() * sampleBodies.length)];
         }
 
-        emailBody.innerHTML = bodyText
+        typeWriterEffect(emailBody, bodyText);
       }
     } else {
       console.error('AI Assistant: Could not find the email body.')
@@ -144,8 +299,7 @@ function findAndInject() {
       role: 'presentation',
       'data-tabster': '{&quot;restorer&quot;:{&quot;type&quot;:0}}',
       className: 'fui-MenuPopover ___152dg9n ft85np5 fxugw4r f19n0e5 f1ewtqcl fl8fusi f1kaai3v f1p9o1ba f1ahpp82 f1hg901r fd3pd8h f9ggezi fk6fouc fkhj508 figsok6 f1i3iumi f18k4bn6 fo1kyvf fetxo7e f8x1vz1 f8g0anz fezwn9i fz5efge f1ydixl4 f8dgqj5 fnyfnr8 fgw77r4 f1noc5he fi19xcv f1mxk9aa ffzg62k',
-      style: 'position: absolute; left: 0px; top: 0px; margin: 0px',
-      transform: `translate3d(${coordinates.left}px, ${coordinates.bottom}px, 0px)`,
+      style: `position: fixed; top: ${coordinates.bottom + 5}px; left: ${coordinates.right - 150}px; z-index: 999999;`,
       'data-popper-placement': 'bottom-end',
       'data-popper-is-intersecting': '',
     })
@@ -172,14 +326,19 @@ function findAndInject() {
 
         const composeArea = sendButtonToolbar.closest('#ReadingPaneContainerId')
         const emailBody = composeArea ? composeArea.querySelector('div[aria-label*="Message body"]') : null
+        const subjectInput = composeArea ? composeArea.querySelector('input[aria-label*="Subject"]') : null
 
-        if (emailBody) {
-          emailBody.innerHTML = 'Generating draft...'
-          emailBody.innerHTML = draft.body
-        } else {
-          console.error('AI Assistant: Could not find the email body.')
-        }
+        if (emailBody && subjectInput) {
+            emailBody.innerHTML = draft.body.replace(/\n/g, "<br>");
+            subjectInput.value = draft.subject;
+            subjectInput.dispatchEvent(new Event('input', { bubbles: true }));
+            subjectInput.dispatchEvent(new Event('change', { bubbles: true }));
+
+        } 
+        const dropdown = document.querySelector('#dropdownContainer');
+        if (dropdown) dropdown.remove();
       }
+
 
       dropdownContainer3.appendChild(menuItem)
     })
