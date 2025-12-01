@@ -28,3 +28,13 @@
 .ai-button.secondary:hover {
   background-color: #e1dfdd;
 }
+
+.fui-MenuItem {
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.fui-MenuItem:hover {
+  background-color: #e5e5e5;
+}
